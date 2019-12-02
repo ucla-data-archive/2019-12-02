@@ -10,6 +10,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
+```{r loading-data}
+source('data/clean.R')
+```
+
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
@@ -73,8 +77,16 @@ tm_shape(arrests18_zip) +
 
 The cool thing is now we have this general workflow we can create other aggregates by any number of variables. 
 
-```{r}
+```{r eval=FALSE}
 arr18_bysex <- arrest18_sf %>% 
   count(sex)
 ```
 
+
+## Publishing a map in rpubs
+
+One great feature of R markdown is that we can publish the maps to the web once we are happy with it (we can also republish it). Let's do that now. 
+
+First step, get an account with RPubs <https://rpubs.com/>. Stay logged in once you get an account. 
+
+Now, the beauty of R markdown is the `Knit` button above. 

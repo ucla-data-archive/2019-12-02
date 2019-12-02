@@ -38,16 +38,3 @@ arrest18_sf <- st_read(dsn = "data/arrests_zip.gpkg")
 
 arrest18_byzip <- arrest18_sf %>% 
   count(zipcode)
-
-tmap_mode("view")
-# #map of arrests
-tm_shape(arrest18_byzip) +
- tm_polygons("n")
-
-# st_is_empty(arrestsbyzip)
-
-## select charge and chage description
-
-arrests17_18 %>%
-  select(zipcode,charge, chg_grp_desc, sex) %>%
-  count(zipcode, chg_grp_desc, sex, sort=TRUE)
