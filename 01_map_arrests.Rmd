@@ -1,0 +1,80 @@
+---
+title: "Mapping LA Arrests Data"
+author: "Tim Dennis"
+date: "12/2/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r arrests_sum}
+summary(arrest17_18_sf)
+```
+
+## Including Plots
+
+Let's look at a histogram of arrest_time in our data set. 
+
+```{r bar-graph-arrest, echo=FALSE}
+ggplot(arrest17_18_sf, aes(x = race_cat, fill=arrest_type)) + 
+  geom_bar(position = "dodge")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Mapping Arrests Data
+
+Last week at the end of class we made a map of arrests by zipcode:
+
+```{r point-data}
+tm_shape(arrest18_byzip) +
+   tm_polygons("n") 
+```
+
+
+But I had prepared the data prior to class. Let's go over how we aggregated the data in R, so we can produce the map. 
+
+Let's look at the data first. This is all of 2018 arrests data. If you want to see how we created the dataset look in the file `data/clean.R` file in this project. 
+
+```{r view-arrest18}
+View(arrest18_sf)
+```
+
+Now, inside the `tidyverse` package we have a number of functions that let us prepare, clean, and group data. We do this by taking our dataframe and running it through a function. In R we call this process pipelining the data. Let's see how this works. The 2018 data is over 100k observations, so this takes a bit. 
+
+
+```{r}
+# arrests_by_zip
+arrests18_zip <- arrest18_sf %>%
+  count(zipcode) 
+```
+
+The resulting data frame contains 3 variables: `zipcode`, `n`, and `geometry`. 
+
+What happened here? 
+
+Yes, the `count()` variable takes the zipcode column and counts up the occurance by unique zipcode. It then puts this count into the `n` column, creating a count of the number of arrests by zipcode. 
+
+We can then plot it. 
+```{r}
+tm_shape(arrests18_zip) +
+   tm_polygons("n") 
+```
+
+
+The cool thing is now we have this general workflow we can create other aggregates by any number of variables. 
+
+```{r}
+arrest18_sf %>% 
+  
+```
+
