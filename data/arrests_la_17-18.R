@@ -4,6 +4,12 @@ library(janitor)
 library(lubridate)
 
 
+# zip, sex, race, number_of_arrest, arest_type
+
+arrest_raw <- read_csv("data/ARREST_DATA_2017_2018.csv")
+arrest_raw <- clean_names(arrest_raw)
+names(arrest_raw)
+
 # some variables removed - 2017-2018
 arrest2017_18 <- arrest_raw %>%
   mutate(arr_date2 = mdy(arrest_date)) %>%
@@ -12,17 +18,17 @@ arrest2017_18 <- arrest_raw %>%
 
 
 #filter 2017
-arrest18_count_zip <- arrest_raw %>%
+arrest17_count_zip <- arrest_raw %>%
   mutate(arr_date2 = mdy(arrest_date)) %>%
   #filter by date
-  filter(arr_date2 >= as.Date("2018-01-01") & arr_date2 <= as.Date("2018-12-31")) %>%
+  filter(arr_date2 >= as.Date("2017-01-01") & arr_date2 <= as.Date("2017-12-31")) %>%
   select(latitude, longitude, zipcode, arr_date2, arrest_time, age, sex, race_cat, arrest_type,  charge)
 
 #filtering dec2018
-arrest18 <- arrest_raw %>%
-  mutate(arr_date = mdy(arrest_date)) %>%
-  filter(arr_date >= as.Date("2018-12-01") & arr_date <= as.Date("2018-12-31")) %>%
-  select(latitude, longitude, zipcode, arr_date, age, sex, race_cat, arrest_type,  chg_grp_desc)
+dec18_arrest_latlon_dem <- arrest_raw %>%
+  mutate(arr_date2 = mdy(arrest_date)) %>%
+  filter(arr_date2 >= as.Date("2018-12-01") & arr_date2 <= as.Date("2018-12-31")) %>%
+  select(latitude, longitude, zipcode, arr_date2, arrest_time, age, sex, race_cat, arrest_type,  charge)
 
 aug6_12_arr_latlon_demo <- arrest_raw %>%
   mutate(arr_date2 = mdy(arrest_date)) %>%
