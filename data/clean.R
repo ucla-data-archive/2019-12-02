@@ -15,6 +15,7 @@ arrests17_18 <- clean_names(arrests17_18)
 
 arrests18 <- arrests17_18 %>%
   mutate(arr_date = mdy(arrest_date)) %>%
+  sample_n(25000) %>% 
   filter(arr_date >= as.Date("2018-01-01") & arr_date <= as.Date("2018-12-31")) %>%
   select(latitude, longitude, zipcode, arr_date, arrest_time, age, sex, race_cat, arrest_type, chg_grp_desc)
 
@@ -42,8 +43,6 @@ tmap_mode("view")
 # #map of arrests
 tm_shape(arrest18_byzip) +
  tm_polygons("n")
-
-
 
 # st_is_empty(arrestsbyzip)
 

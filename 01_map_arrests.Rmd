@@ -17,7 +17,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r arrests_sum}
-summary(arrest17_18_sf)
+summary(arrest18_sf)
 ```
 
 ## Including Plots
@@ -25,7 +25,7 @@ summary(arrest17_18_sf)
 Let's look at a histogram of arrest_time in our data set. 
 
 ```{r bar-graph-arrest, echo=FALSE}
-ggplot(arrest17_18_sf, aes(x = race_cat, fill=arrest_type)) + 
+ggplot(arrest18_sf, aes(x = race_cat, fill=arrest_type)) + 
   geom_bar(position = "dodge")
 ```
 
@@ -74,7 +74,7 @@ tm_shape(arrests18_zip) +
 The cool thing is now we have this general workflow we can create other aggregates by any number of variables. 
 
 ```{r}
-arrest18_sf %>% 
-  
+arr18_bysex <- arrest18_sf %>% 
+  count(sex)
 ```
 
